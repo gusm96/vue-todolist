@@ -32,6 +32,7 @@ export default {
     },
     clearInput: function() {
       this.newTodoItem = "";
+      location.reload();
     }
   }
 };

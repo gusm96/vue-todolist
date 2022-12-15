@@ -2,7 +2,7 @@
   <main>
     <div>
       <ul>
-        <li v-for="{ todoItem, index } in todoItems" v-bind:key="todoItem">
+        <li v-for="(todoItem, index) in todoItems" v-bind:key="todoItem">
           {{ todoItem }}
           <button v-on:click="removeTodo(todoItem, index)">Delete</button>
         </li>
@@ -38,6 +38,7 @@ export default {
   methods: {
     removeTodo: function(todoItem, index) {
       var yesNo = confirm("정말로 삭제하시겠습니까?");
+      // 실수로 delete 방지
       if (yesNo == true) {
         localStorage.removeItem(todoItem);
         this.todoItems.splice(index, 1);
