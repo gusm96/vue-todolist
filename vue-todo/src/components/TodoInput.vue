@@ -11,32 +11,21 @@
 <script>
 export default {
   name: "TodoInput",
-  components: {},
   data() {
     return {
       newTodoItem: ""
     };
   },
-  beforeCreate() {},
-  created() {},
-  beforeMount() {},
-  mounted() {},
-  beforeUpdate() {},
-  updated() {},
-  beforeUnmount() {},
-  unmounted() {},
   methods: {
     addTodo: function() {
-      const obj = {
-        completed: false,
-        item: this.newTodoItem
-      };
-      localStorage.setItem(this.newTodoItem, JSON.stringify(obj));
-      this.clearInput();
+      if (this.newTodoItem !== " ") {
+        // $emit을 이용하여 상위 컴포넌트인 App.vue 로 addTodoItem를 보내준다.
+        this.$emit("addTodoItem", this.newTodoItem);
+        this.clearInput();
+      }
     },
     clearInput: function() {
       this.newTodoItem = "";
-      location.reload();
     }
   }
 };

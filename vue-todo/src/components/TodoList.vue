@@ -2,7 +2,7 @@
   <main>
     <div>
       <ul>
-        <li v-for="(todoItem, index) in todoItems" v-bind:key="todoItem.item">
+        <li v-for="(todoItem, index) in propsdata" v-bind:key="todoItem.item">
           <i
             class="checkBtn fas fa-check"
             v-bind:class="{ checkBtnCompleted: todoItem.completed }"
@@ -22,46 +22,13 @@
 <script>
 export default {
   name: "TodoList",
-  components: {},
-  data() {
-    return {
-      todoItems: []
-    };
-  },
-  beforeCreate() {},
-  created() {
-    if (localStorage.length > 0) {
-      for (var i = 0; i < localStorage.length; i++) {
-        if (localStorage.key(i) !== "loglevel:webpack-dev-server") {
-          this.todoItems.push(
-            JSON.parse(localStorage.getItem(localStorage.key(i)))
-          );
-        }
-      }
-    }
-  },
-  beforeMount() {},
-  mounted() {},
-  beforeUpdate() {},
-  updated() {},
-  beforeUnmount() {},
-  unmounted() {},
+  props: ["propsdata"],
   methods: {
     removeTodo: function(todoItem, index) {
-      var yesNo = confirm("정말로 삭제하시겠습니까?");
-      // 실수로 delete 방지
-      if (yesNo == true) {
-        localStorage.removeItem(todoItem.item);
-        this.todoItems.splice(index, 1);
-      }
+      this.$emit("removeItem", todoItem, index);
     },
     toggleComplete: function(todoItem, index) {
-      todoItem.completed = !todoItem.completed;
-      // localStorage 에서 update 할 수 있는 API 가 없기 때문에
-      // removeItem 으로 삭제 후 다시 setItem 을 해준다.
-      // localStorage 갱신 하는 방법
-      localStorage.removeItem(todoItem.item);
-      localStorage.setItem(todoItem.item, JSON.stringify(todoItem));
+      this.$emit("toggleItem", todoItem, index);
     }
   }
 };
