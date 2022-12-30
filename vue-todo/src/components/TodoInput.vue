@@ -5,28 +5,40 @@
       <span class="addContainer" v-on:click="addTodo">
         <i class="fa-solid fa-plus addBtn"></i>
       </span>
+      <Modal v-if="showModal" @close="showModal = false">
+        <h3 slot="header">
+          경고!
+        </h3>
+      </Modal>
     </div>
   </main>
 </template>
 <script>
+import Modal from "./common/Modal.vue";
 export default {
   name: "TodoInput",
   data() {
     return {
-      newTodoItem: ""
+      newTodoItem: "",
+      showModal: false
     };
   },
   methods: {
     addTodo: function() {
-      if (this.newTodoItem !== " ") {
+      if (this.newTodoItem !== "") {
         // $emit을 이용하여 상위 컴포넌트인 App.vue 로 addTodoItem를 보내준다.
         this.$emit("addTodoItem", this.newTodoItem);
         this.clearInput();
+      } else {
+        this.showModal = !this.showModal;
       }
     },
     clearInput: function() {
       this.newTodoItem = "";
     }
+  },
+  components: {
+    Modal: Modal
   }
 };
 </script>

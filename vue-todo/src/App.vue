@@ -49,6 +49,7 @@ export default {
       };
       localStorage.setItem(todoItem, JSON.stringify(obj));
       this.todoItems.push(obj);
+      console.log(JSON.stringify(obj));
     },
     removeOneItem: function(todoItem, index) {
       var yesNo = confirm("정말로 삭제하시겠습니까?");
@@ -81,6 +82,9 @@ export default {
 body {
   text-align: center;
   background-color: #f6f6f6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 input {
   border-style: groove;
